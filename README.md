@@ -1,13 +1,15 @@
 # OLED_Stats_Docker
 OLED Stats display script and settings for Docker implementation
 
-Installation Steps
+The script is pre-configured for 128x64 I2C OLED Display, but can easily be modified to run on a 128x32 I2C OLED Display
 
-The connections and setup of the display are as per 
+## Installation Steps
+
+The connections and setup of the display are as per my repository for running on Raspberry Pi OS - https://github.com/mklements/OLED_Stats
 
 <img align="right" src="https://www.the-diy-life.com/wp-content/uploads/2022/09/187172812-de2de65c-bd30-40e7-a852-2d424edc27ab.jpg" height="220"></img>
 
-To install on Docker:
+## To install on Docker:
 
 If you do not have Docker yet
 
@@ -16,7 +18,7 @@ If you do not have Docker yet
   sudo sh get-docker.sh
 ```
 
-Script setup:
+## Script setup:
 
 ```shell
   sudo raspi-config nonint do_i2c 0
