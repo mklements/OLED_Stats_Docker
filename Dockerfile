@@ -11,6 +11,6 @@ RUN apk add --no-cache i2c-tools libgpiod-dev gcc libc-dev linux-headers py3-pil
 
 WORKDIR /opt/stats
 
-COPY PixelOperator.ttf lineawesome-webfont.ttf stats2.py /opt/stats/
+COPY PixelOperator.ttf lineawesome-webfont.ttf stats.py /opt/stats/
 
 ENTRYPOINT [ "python", "stats.py" ]
