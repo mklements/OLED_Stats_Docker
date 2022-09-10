@@ -27,3 +27,6 @@ jobs:
         with:
           push: true
           tags: macley/oled_stats:latest
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+
+
