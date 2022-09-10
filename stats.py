@@ -10,6 +10,7 @@ import digitalio
 import adafruit_ssd1306
 import subprocess
 import datetime
+from time import sleep
 from PIL import Image, ImageDraw, ImageFont
 
 def time_in_range(start, end, current):
