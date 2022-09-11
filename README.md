@@ -23,6 +23,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo usermod -aG docker $USER
 rm get-docker.sh
+exit # logout and back in for changes to take effect!
 ```
 
 To use the `docker` command as a none-root user, logout and in again for the change to take effect.
