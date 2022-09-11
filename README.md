@@ -22,6 +22,7 @@ If you do not have Docker yet. Copy and paste the following as a none-root user:
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo usermod -aG docker $USER
+rm get-docker.sh
 ```
 
 To use the `docker` command as a none-root user, logout and in again for the change to take effect.
