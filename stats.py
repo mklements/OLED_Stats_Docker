@@ -10,6 +10,7 @@ import digitalio
 import adafruit_ssd1306
 import subprocess
 import datetime
+from time import sleep
 from PIL import Image, ImageDraw, ImageFont
 
 def time_in_range(start, end, current):
@@ -24,8 +25,8 @@ height = 64
 font_sz = 16
 
 # When the display should be on e.g. 8:30 (8, 30, 0) up to 23:00
-start = datetime.time(0, 0, 0)
-end = datetime.time(0, 0, 0)
+start = datetime.time(8, 30, 0)
+end = datetime.time(23, 0, 0)
 current = datetime.datetime.now().time()
 
 # Methode to control the display with oled func
