@@ -12,6 +12,7 @@ import subprocess
 import datetime
 from time import sleep
 from PIL import Image, ImageDraw, ImageFont
+import os
 
 def time_in_range(start, end, current):
     # Returns whether current is in the range [start, end]
@@ -24,9 +25,8 @@ height = 64
 # Font size
 font_sz = 16
 
-# When the display should be on e.g. 8:30 (8, 30, 0) up to 23:00
-start = datetime.time(8, 30, 0)
-end = datetime.time(23, 0, 0)
+start = os.environ['start']
+end = os.environ['end']
 current = datetime.datetime.now().time()
 
 # Methode to control the display with oled func
