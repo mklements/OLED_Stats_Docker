@@ -12,10 +12,7 @@ import subprocess
 import datetime
 from time import sleep
 from PIL import Image, ImageDraw, ImageFont
-
-def time_in_range(start, end, current):
-    # Returns whether current is in the range [start, end]
-    return start <= current <= end
+import os
 
 # Display Parameters
 width = 128
@@ -24,9 +21,9 @@ height = 64
 # Font size
 font_sz = 16
 
-start = datetime.time(8, 30, 0)
-end = datetime.time(23, 0, 0)
-current = datetime.datetime.now().time()
+start = os.environ['start']
+end = os.environ['end']
+current = datetime.datetime.now().time().strftime('%H:%M')
 
 # Methode to control the display with oled func
 oled = adafruit_ssd1306.SSD1306_I2C(width, height, board.I2C(), addr=0x3C, reset=digitalio.DigitalInOut(board.D4))
@@ -45,8 +42,8 @@ draw = ImageDraw.Draw(image)
 font = ImageFont.truetype('PixelOperator.ttf', font_sz)
 icon_font= ImageFont.truetype('lineawesome-webfont.ttf', font_sz)
 while True:
-    while (time_in_range(start, end, current)):
-        current = datetime.datetime.now().time()
+    while (start <= current <= end):
+        current = datetime.datetime.now().time().strftime('%H:%M')
         draw.rectangle((0, 0, oled.width, oled.height), fill=0) # Draw a black filled box to clear the image.
         cmd = "ip addr | awk '/inet / { print $2 }' | sed -n '2{p;q}' | cut -d '/' -f1" # Command that's executed in bash
         IP = subprocess.check_output(cmd, shell = True ) # Register ouput from cmd in var
@@ -96,4 +93,4 @@ while True:
         oled.fill(0)
         oled.show()
         sleep(60)
-        current = datetime.datetime.now().time()
+        current = datetime.datetime.now().time().strftime('%H:%M')
