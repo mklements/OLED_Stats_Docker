@@ -25,8 +25,8 @@ height = 64
 # Font size
 font_sz = 16
 
-start = os.environ['start']
-end = os.environ['end']
+start = os.environ['START_TIME']
+end = os.environ['END_TIME']
 current = datetime.datetime.now().time()
 
 # Methode to control the display with oled func
