@@ -32,7 +32,7 @@ To use the `docker` command as a none-root user, logout and in again for the cha
 
 ```bash
 sudo raspi-config nonint do_i2c 0
-docker run -d -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime --network=host --device=/dev/i2c-1 --device=/dev/gpiomem --restart=on-failure --name OLED_Stats macley/oled_stats
+docker run -d -e start=08:30 -e end=23:00 -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime --network=host --device=/dev/i2c-1 --device=/dev/gpiomem --restart=on-failure --name OLED_Stats macley/oled_stats
 ```
 
 If you don't see anything happening on the screen, it's possible that the current time is outside of the default time set for the screen to be on (from 8:00 to 23:00).
