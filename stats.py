@@ -46,7 +46,7 @@ draw = ImageDraw.Draw(image)
 font = ImageFont.truetype('PixelOperator.ttf', font_sz)
 icon_font= ImageFont.truetype('lineawesome-webfont.ttf', font_sz)
 while True:
-    while (start <= current <= end):
+    while (start < current < end):
         current = datetime.datetime.now().time().strftime('%H')
         current = int(current)
         draw.rectangle((0, 0, oled.width, oled.height), fill=0) # Draw a black filled box to clear the image.
