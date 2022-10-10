@@ -12,10 +12,7 @@ import subprocess
 import datetime
 from time import sleep
 from PIL import Image, ImageDraw, ImageFont
-
-def time_in_range(start, end, current):
-    # Returns whether current is in the range [start, end]
-    return start <= current <= end
+import os
 
 # Display Parameters
 width = 128
@@ -24,10 +21,13 @@ height = 64
 # Font size
 font_sz = 16
 
-# When the display should be on e.g. 8:30 (8, 30, 0) up to 23:00
-start = datetime.time(8, 30, 0)
-end = datetime.time(23, 0, 0)
-current = datetime.datetime.now().time()
+start = os.environ['start']
+end = os.environ['end']
+current = datetime.datetime.now().time().strftime('%H')
+
+start = int(start)
+end = int(end)
+current = int(current)
 
 # Methode to control the display with oled func
 oled = adafruit_ssd1306.SSD1306_I2C(width, height, board.I2C(), addr=0x3C, reset=digitalio.DigitalInOut(board.D4))
@@ -46,8 +46,9 @@ draw = ImageDraw.Draw(image)
 font = ImageFont.truetype('PixelOperator.ttf', font_sz)
 icon_font= ImageFont.truetype('lineawesome-webfont.ttf', font_sz)
 while True:
-    while (time_in_range(start, end, current)):
-        current = datetime.datetime.now().time()
+    while (start < current < end):
+        current = datetime.datetime.now().time().strftime('%H')
+        current = int(current)
         draw.rectangle((0, 0, oled.width, oled.height), fill=0) # Draw a black filled box to clear the image.
         cmd = "ip addr | awk '/inet / { print $2 }' | sed -n '2{p;q}' | cut -d '/' -f1" # Command that's executed in bash
         IP = subprocess.check_output(cmd, shell = True ) # Register ouput from cmd in var
@@ -63,9 +64,9 @@ while True:
         Disk = subprocess.check_output(cmd, shell = True )
         cmd = "uptime | awk '{print $3,$4}' | cut -f1 -d','"
         uptime = subprocess.check_output(cmd, shell = True )
-        cmd = "cat /sys/class/thermal/thermal_zone*/temp | awk -v CONVFMT='%.1f' '{printf $1/1000}'"   
+        cmd = "cat /sys/class/thermal/thermal_zone*/temp | awk -v CONVFMT='%.1f' '{printf $1/1000}'"
         temp = subprocess.check_output(cmd, shell = True )
-    
+
         # We draw the icons seprately and offset by a fixed amount later
         # Icon wifi, chr num comes from unicode &#xf1eb; to decimal 61931 (Use: https://www.binaryhexconverter.com/hex-to-decimal-converter)
         draw.text((1, 0), chr(61931), font=icon_font, fill=255) # Offset the icon on the x-as a little and devide the y-as in steps of 16
@@ -79,7 +80,7 @@ while True:
         draw.text((1, 48), chr(63426), font=icon_font, fill=255)
         # Icon time right
         draw.text((111, 48), chr(62034), font=icon_font, fill=255)
-    
+
         # Pi Stats Display, printed from left to right each line
         draw.text((22, 0), str(IP,'utf-8'), font=font, fill=255) # x y followed by the content to be printed on the display followed by how it should be printed
         draw.text((22, 16), str(CPU,'utf-8') + "%", font=font, fill=255)
@@ -88,7 +89,7 @@ while True:
         draw.text((125, 32), str(Memuse,'utf-8') + "/" + str(MemTotal,'utf-8') + "G", font=font, fill=255, anchor="ra")
         draw.text((22, 48), str(Disk,'utf-8'), font=font, fill=255)
         draw.text((107, 48), str(uptime,'utf-8'), font=font, fill=255, anchor="ra")
-    
+
         # Display image
         oled.image(image)
         oled.show()
@@ -97,4 +98,5 @@ while True:
         oled.fill(0)
         oled.show()
         sleep(60)
-        current = datetime.datetime.now().time()
+        current = datetime.datetime.now().time().strftime('%H')
+        current = int(current)
