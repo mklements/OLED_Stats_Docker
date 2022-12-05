@@ -2,7 +2,7 @@
 
 <img align="right" src="https://www.the-diy-life.com/wp-content/uploads/2022/09/187172812-de2de65c-bd30-40e7-a852-2d424edc27ab.jpg" height="220"></img>
 
-OLED Stats display script and settings for Docker implementation
+OLED Stats display script and settings for Docker implementation on a Raspberry Pi.
 
 The script is pre-configured for 128x64 I2C OLED display.
 
