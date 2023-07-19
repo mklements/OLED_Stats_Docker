@@ -58,4 +58,4 @@ macley@raspberrypi:~ $ docker exec -t OLED_Stats i2cdetect -y 1
 
 ## Set Display On/Off Time
 
-The script automatically turns the display on or off depending on the time of day. By default the display will turn on at 8 and will turn off again at 23. You can change these times by changing the -e start=08 -e end=23 parts to the times of your liking in the run command.
+Schedule with Cron or simalair when your container must be shutdown. The display will also be turned off!
