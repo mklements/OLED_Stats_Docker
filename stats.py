@@ -16,8 +16,8 @@ import atexit
 import signal
 
 def exit_handler():
-    led.fill(0)
-    led.show()
+    oled.fill(0)
+    oled.show()
 
 def kill_handler(*args):
     oled.fill(0)
